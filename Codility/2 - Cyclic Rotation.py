@@ -62,13 +62,13 @@ def solution_v2(A, K):
 # Se eu fizer um número de rotações que seja um múltiplo do tamanho do array +1, preciso fazer uma rotação, e esse padrão fica visível para múltiplo do array +2, +3, +4...
 # Assim, cheguei em uma solução em que precisamos fazer, no máximo, len(A) - 1 rotações
 # Se quiser, copie a função abaixo, descomente o print e brinque com os valores de rotações pedidas nos asserts, adicionando um múltiplo do tamanho do array ao número de rotações.
-# Você perceberá que rotation_quantity não se altera
+# Você perceberá que rotations_needed não se altera
 
 
 def solution_v3(A, K):
-    rotation_quantity = K % len(A)
-    # print(rotation_quantity)
-    for _ in range(rotation_quantity):
+    rotations_needed = K % len(A)
+    # print(rotations_needed)
+    for _ in range(rotations_needed):
         A = A[-1:] + A[:-1]
     return A
 
@@ -80,14 +80,14 @@ def solution_v3(A, K):
 # Agora que limitamos a quantidade de rotações necessárias, podemos prever onde cada número irá ficar depois que elas foram realizadas. Pegando o array do primeiro assert como exemplo:
 # último dígito (6), após as 3 rotações pedidas, ficará na posição 2 e o terceiro dígito (9), ficará na posição 0
 # Se eu tivesse um array [1, 2, 3, 4, 5, 6, 7] e fossem necessárias 5 rotações, o 7 ficaria na posição 4 e o 3 na posição 0 -> [3, 4, 5, 6, 7, 1, 2]
-# Como no pyhton podemos nos referir aos valores de um array usando índices negativos, me parece que podemos fazer array[-rotation_quantity:] + array[:-rotation_quantity]
+# Como no pyhton podemos nos referir aos valores de um array usando índices negativos, me parece que podemos fazer array[-rotations_needed:] + array[:-rotations_needed]
 
 def solution_v4(A, K):
-    rotation_quantity = K % len(A)
-    A = A[-rotation_quantity:] + A[:-rotation_quantity]
+    rotations_needed = K % len(A)
+    A = A[-rotations_needed:] + A[:-rotations_needed]
     return A
 
-# E de fato funciona! Com essa solkução eu fico feliz :) Bora pro próximo
+# E de fato funciona! Com essa solução eu fico feliz :) Bora pro próximo
 
 
 assert solution_v4([3, 8, 9, 7, 6], 3) == [9, 7, 6, 3, 8]
