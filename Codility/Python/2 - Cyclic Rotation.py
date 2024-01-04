@@ -80,7 +80,7 @@ def solution_v3(A, K):
 # Agora que limitamos a quantidade de rotações necessárias, podemos prever onde cada número irá ficar depois que elas foram realizadas. Pegando o array do primeiro assert como exemplo:
 # último dígito (6), após as 3 rotações pedidas, ficará na posição 2 e o terceiro dígito (9), ficará na posição 0
 # Se eu tivesse um array [1, 2, 3, 4, 5, 6, 7] e fossem necessárias 5 rotações, o 7 ficaria na posição 4 e o 3 na posição 0 -> [3, 4, 5, 6, 7, 1, 2]
-# Como no pyhton podemos nos referir aos valores de um array usando índices negativos, me parece que podemos fazer array[-rotations_needed:] + array[:-rotations_needed]
+# Como no python podemos nos referir aos valores de um array usando índices negativos, me parece que podemos fazer array[-rotations_needed:] + array[:-rotations_needed]
 
 def solution_v4(A, K):
     rotations_needed = K % len(A)
