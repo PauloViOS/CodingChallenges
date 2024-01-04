@@ -88,8 +88,17 @@ def solution_v4(A, K):
     return A
 
 # E de fato funciona! Com essa solução eu fico feliz :) Bora pro próximo
+# Edit: ao rodar a v4 no codility, um teste falhou! Era no caso do array ser vazio!
+# Nada que um if não resolva
 
 
-assert solution_v4([3, 8, 9, 7, 6], 3) == [9, 7, 6, 3, 8]
-assert solution_v4([0, 0, 0], 1) == [0, 0, 0]
-assert solution_v4([1, 2, 3, 4], 4) == [1, 2, 3, 4]
+def solution_v5(A, K):
+    if len(A) > 0:
+        rotations_needed = K % len(A)
+        A = A[-rotations_needed:] + A[:-rotations_needed]
+    return A
+
+
+assert solution_v5([3, 8, 9, 7, 6], 3) == [9, 7, 6, 3, 8]
+assert solution_v5([0, 0, 0], 1) == [0, 0, 0]
+assert solution_v5([1, 2, 3, 4], 4) == [1, 2, 3, 4]
