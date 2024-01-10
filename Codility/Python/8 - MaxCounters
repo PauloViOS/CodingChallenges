@@ -1,0 +1,92 @@
+# You are given N counters, initially set to 0, and you have two possible operations on them:
+#
+# increase(X) − counter X is increased by 1,
+# max counter − all counters are set to the maximum value of any counter.
+# A non-empty array A of M integers is given. This array represents consecutive operations:
+#
+# if A[K] = X, such that 1 ≤ X ≤ N, then operation K is increase(X),
+# if A[K] = N + 1 then operation K is max counter.
+# For example, given integer N = 5 and array A such that:
+#
+# A[0] = 3
+# A[1] = 4
+# A[2] = 4
+# A[3] = 6
+# A[4] = 1
+# A[5] = 4
+# A[6] = 4
+# the values of the counters after each consecutive operation will be:
+#
+# (0, 0, 1, 0, 0)
+# (0, 0, 1, 1, 0)
+# (0, 0, 1, 2, 0)
+# (2, 2, 2, 2, 2)
+# (3, 2, 2, 2, 2)
+# (3, 2, 2, 3, 2)
+# (3, 2, 2, 4, 2)
+# The goal is to calculate the value of every counter after all operations.
+#
+# Write a function:
+#
+# def solution(N, A)
+#
+# that, given an integer N and a non-empty array A consisting of M integers, returns a sequence of integers representing the values of the counters.
+#
+# Result array should be returned as an array of integers.
+#
+# For example, given:
+#
+# A[0] = 3
+# A[1] = 4
+# A[2] = 4
+# A[3] = 6
+# A[4] = 1
+# A[5] = 4
+# A[6] = 4
+# the function should return [3, 2, 2, 4, 2], as explained above.
+#
+# Write an efficient algorithm for the following assumptions:
+#
+# N and M are integers within the range [1..100,000];
+# each element of array A is an integer within the range [1..N + 1].
+
+################################################## Resolução ##################################################
+
+# Achei o enunciado bem direto e a primeira coisa que me vem à cabeça fazer é a solução abaixo
+
+def solution(N, A):
+    counters = [0]*N
+    max_counter = 0
+    for operation in A:
+        if operation == N + 1:
+            counters = [max_counter] * N
+        elif 1 <= operation <= N:
+            counters[operation-1] += 1
+            if counters[operation-1] > max_counter:
+                max_counter = counters[operation-1]
+    return counters
+
+
+# O que passa em todos os teses, exceto nos de performance onde há muitas operações de max_counter
+# Vou tentar apenas fazer operações de max_counter necessárias, ou seja, quando a última operação não foi max_counter
+
+def solution_v2(N, A):
+    counters = [0]*N
+    max_counter = 0
+    last_operation_is_max_counter = False
+    for operation in A:
+        if (operation == N + 1) and (last_operation_is_max_counter == False):
+            counters = [max_counter] * N
+            last_operation_is_max_counter = True
+        elif 1 <= operation <= N:
+            counters[operation-1] += 1
+            if counters[operation-1] > max_counter:
+                max_counter = counters[operation-1]
+            last_operation_is_max_counter = False
+    return counters
+
+
+assert solution_v2(5, [3, 4, 4, 6, 1, 4, 4]) == [3, 2, 2, 4, 2]
+
+# Isso passou no teste de performance onde todas as operações são max_counter, mas falhou quando as operaçoes são por volta de 10000 embaralhadas em outras operações.
+# A complexidade está muito boa, O(N+M). Mas ainda falta algo...
